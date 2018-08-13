@@ -4,10 +4,16 @@
         <script>
 			function getDates(val) {
 				var request = new XMLHttpRequest();
+                var num = 0;
 				request.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
                         console.log('success status code')
 					} else {
+                        if (num < 3) {
+                            num++
+                        } else {
+                            window.location.href = "error.html"
+                        }
                         console.log('failed status code')
                     }
 				};
