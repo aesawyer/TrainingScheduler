@@ -3,23 +3,22 @@
         <title>WGU Training Scheduler</title>
         <script>
 			function getDates(val) {
+                var num = 0;
 				var request = new XMLHttpRequest();
-                var num = 0;/*
+				request.open("GET", "https://sq6nxp0qa8.execute-api.us-east-1.amazonaws.com/prod/Scheduler_DateTimeChecker", true);
+                request.setRequestHeader('Accept', 'application/json');
+                request.responseType = 'json'
 				request.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
-                        populateList();
+					   //
 					} else {
                         if (num < 3) {
                             num++
                         } else {
-                            window.location.href = "error.html"
+                            window.location.href = 'error.html'
                         }
-                        console.log('failed status code')
                     }
-				};*/
-				request.open("GET", "https://sq6nxp0qa8.execute-api.us-east-1.amazonaws.com/prod/Scheduler_DateTimeChecker", true);
-                request.setRequestHeader('Accept', 'application/json');
-                request.responseType = 'json'
+				};
                 request.onload = function() {
                     let dropdown = document.getElementById('dates');
                     let option;
@@ -33,7 +32,6 @@
                     console.log(request.response)
                     console.log(request.response.body)
                 };
-                //request.onload(console.log(request.responseText));
 				request.send();
 			}
         </script>
@@ -42,14 +40,40 @@
                 window.location.href = "home.html"
             }
         </script>
+        <script>
+            function submitInfo() {
+                var info = {};
+                    info.Certification = 'Cloud Practitioner';
+                    info.StartDate = document.getElementById('dates').value;
+                    info.FirstName = document.getElementById('fnameID').value;
+                    info.LastName = document.getElementById('lnameID').value;
+                    info.Email = document.getElementById('emailID').value;
+                var json = JSON.stringify(info)
+                var submitReq = new XMLHttpRequest();
+                submitReq.open("POST", "https://sq6nxp0qa8.execute-api.us-east-1.amazonaws.com/prod/Scheduler_RegisterTrainee", true);
+                submitReq.setRequestHeader('content-type', 'application/json');
+                submitReq.responseType = 'json'
+                submitReq.send(json);
+                
+                console.log(json)
+            }
+        </script>
     </head>
     <body onload="getDates('Cloud Practitioner')">
         <div align='center'>
             <br>
             <h1>Cloud Practitioner</h1>
             <br>
-            <select id="dates"></select>
+            <em>Date - Time</em>
             <br>
+            <select id="dates" ></select>
+            <br>
+            <br>
+            First Name: <input type='text' name='fname:' id='fnameID' size='35'><br>
+            Last Name: <input type='text' name='lname' id='lnameID' size='35'><br>
+            WGU Email: <input type='text' name='email' id='emailID' size='35'><br>
+            <br>
+            <button onclick="submitInfo()">Sign Up!</button>
             <button onclick="returnHome()">Return Home</button>
         </div>
     </body>
