@@ -20,17 +20,18 @@
 				request.open("GET", "https://sq6nxp0qa8.execute-api.us-east-1.amazonaws.com/prod/Scheduler_DateTimeChecker", true);
                 request.setRequestHeader('Accept', 'application/json');
                 request.responseType = 'json'
-                request.onload = function() {/*
+                request.onload = function() {
                     let dropdown = document.getElementById('dates');
-                    const data = JSON.parse(request.responseText);
                     let option;
-                    for (let i = 0; i < data.length; i++){
+                    for (i=0; i < request.response.body.length; i++) {
                         option = document.createElement('option');
-                        option.text=data[i].name;
-                        option.value=data[i].abbreviation;
+                        option.text=(request.response.body[i].StartDate.concat(' - ',request.response.body[i].StartTime));
+                        option.value=(request.response.body[i].StartDate);
                         dropdown.add(option);
-                    }*/
+                        console.log(request.response.body[i].Certification)
+                    }
                     console.log(request.response)
+                    console.log(request.response.body)
                 };
                 //request.onload(console.log(request.responseText));
 				request.send();
