@@ -13,17 +13,18 @@
                 request.onload = function() {
                     let dropdown = document.getElementById('dates');
                     let option;
-                    if (request.response.body != undefined) { 
-                        if (request.response.body.length > 0) {
-                            for (i=0; i < request.response.body.length; i++) {
-                                if (request.response.body[i].Certification == 'Cloud Practitioner') {
-                                    option = document.createElement('option');
-                                    option.text=(request.response.body[i].StartDate.concat(' - ',request.response.body[i].StartTime));
-                                    option.value=(request.response.body[i].StartDate);
-                                    dropdown.add(option);
-                                    console.log(request.response.body[i].Certification)
-                                }
+                    if (request.response.body.length > 0) {
+                        for (i=0; i < request.response.body.length; i++) {
+                            if (request.response.body[i].Certification == 'System Administrator - Associate') {
+                                option = document.createElement('option');
+                                option.text=(request.response.body[i].StartDate.concat(' - ',request.response.body[i].StartTime));
+                                option.value=(request.response.body[i].StartDate);
+                                dropdown.add(option);
+                                console.log(request.response.body[i].Certification)
                             }
+                        }
+                        if (dropdown.length <= 0 ) {
+                            window.location.href = 'nostarttimes.html'
                         }
                     } else {
                         window.location.href = 'nostarttimes.html'
@@ -42,7 +43,7 @@
         <script>
             function submitInfo() {
                 var info = {};
-                    info.Certification = 'Cloud Practitioner';
+                    info.Certification = 'System Administrator - Associate';
                     info.StartDate = document.getElementById('dates').value;
                     info.FirstName = document.getElementById('fnameID').value;
                     info.LastName = document.getElementById('lnameID').value;
@@ -61,10 +62,10 @@
             }
         </script>
     </head>
-    <body onload="getDates('Cloud Practitioner')">
+    <body onload="getDates('System Administrator - Associate')">
         <div align='center'>
             <br>
-            <h1>Cloud Practitioner</h1>
+            <h1>System Administrator - Associate</h1>
             <br>
             <em>Date - Time</em>
             <br>
