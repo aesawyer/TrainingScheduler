@@ -1,28 +1,30 @@
 <html>
     <head>
+        <link rel='shortcut icon' href='#' />
         <title>WGU Training Scheduler</title>
         <script>
-			function getDates() {
-				var xhttp = new XMLHttpRequest();
-                var val = document.getElemtByID('class').value;
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-					   window.location.href = "newsite.html"
-					} else {
-                        window.location.href = "error.html"
-                        console.log(val)
-                    }
-				};
-				xhttp.open("GET", "YOUR-API-GATEWAY-LINK-HERE"+val, true);
-                console.log(val)
-				xhttp.send();
-			}
+			function swapPage(val) {
+                switch (val) {
+                    case 'Cloud Practitioner':
+                        window.location.href = 'cp.html'
+                        break;
+                    case 'Developer - Associate':
+                        window.location.href = 'dev.html'
+                        break;
+                    case 'Solutions Architect - Associate':
+                        window.location.href = 'sola.html'
+                        break;
+                    case 'System Administrator - Associate':
+                        window.location.href = 'sysa.html'
+                        break;
+                }
+            };
         </script>
         
         <script>
             function testFunc() {
                 window.location.href = "error.html"
-                console.log('success')
+                console.log('testFunc success')
             }
         </script>
         
@@ -37,7 +39,7 @@
                 <option value="Solutions Architect - Associate">Solutions Architect - Associate</option>
                 <option value="System Administrator - Associate">System Administrator - Associate</option>
             </select>
-            <button onclick="testFunc()">Click To Enroll</button>
+            <button onclick="swapPage(document.getElementById('class').value)">Click To Enroll</button>
         </div>
     </body>
 </html>
