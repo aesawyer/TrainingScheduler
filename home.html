@@ -1,18 +1,43 @@
-<!DOCTYPE html>
 <html>
-<head>
-	<title>WGU Training Scheduler</title>
-</head>
-<body>
-<h2> Select which certification you would like to take: </h2>
-<h3> (If you have yet to take any class select 'Cloud Practitioner') </h3>
-<select id="class">
-		<option value="Cloud Practitioner">Cloud Practitioner</option>
-		<option value="Developer - Associate">Developer - Associate</option>
-		<option value="Solutions Architect - Associate">Solutions Architect - Associate</option>
-		<option value="System Administrator - Associate">System Administrator - Associate</option>
-	<form action="http://www.google.com/">
-		<button type="submit">Click here</button>
-	</form>
-</body>
+    <head>
+        <title>WGU Training Scheduler</title>
+        <script>
+			function getDates() {
+				var xhttp = new XMLHttpRequest();
+                var val = document.getElemtByID('class').value;
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+					   window.location.href = "newsite.html"
+					} else {
+                        window.location.href = "error.html"
+                        console.log(val)
+                    }
+				};
+				xhttp.open("GET", "YOUR-API-GATEWAY-LINK-HERE"+val, true);
+                console.log(val)
+				xhttp.send();
+			}
+        </script>
+        
+        <script>
+            function testFunc() {
+                window.location.href = "error.html"
+                console.log('success')
+            }
+        </script>
+        
+    </head>
+    <body>
+        <div align='center'>
+            <h2> Select which certification you would like to take: </h2>
+            <h3> (If you have yet to achieve any AWS Certification select 'Cloud Practitioner') </h3>
+            <select id="class">
+                <option value="Cloud Practitioner">Cloud Practitioner</option>
+                <option value="Developer - Associate">Developer - Associate</option>
+                <option value="Solutions Architect - Associate">Solutions Architect - Associate</option>
+                <option value="System Administrator - Associate">System Administrator - Associate</option>
+            </select>
+            <button onclick="testFunc()">Click To Enroll</button>
+        </div>
+    </body>
 </html>
