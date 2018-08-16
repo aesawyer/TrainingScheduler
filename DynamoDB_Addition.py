@@ -31,7 +31,7 @@ def lambda_handler(event, context):
 
     # items = json.dumps(query['Items'])
 
-    if len(query['Items']) >= 10:
+    if len(query['Items']) >= 15:
         classTable.delete_item(
             Key={
                 'Certification': loadedBody['Certification'],
