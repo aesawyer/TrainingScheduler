@@ -1,18 +1,27 @@
 import boto3
 import os
 import json
+from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Attr
 import datetime
 
+
 def lambda_handler(event, context):
-    dynamodb = boto3.client('dynamodb')
-    now = datetime.datetime.now()
-    response = dynamodb.query(
-        TableName = 'DYNAMO_TABLE_NAME',
-        IndexName = event['pathParameters']['dateToCheck']
+    today = (now.strftime("%B") + ' ' + str(now.day) + ', ' + str(now.year))
+
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table(os.environ['ROSTER_TABLE_NAME'])
+    classTable = dynamodb.Table(os.environ['CLASS_TABLE_NAME'])
+
+    rosterQuery = table.query(
+        KeyConditionExpression=Key('StartDate').eq(loadedBody['StartDate']),
+        FilterExpression=Attr('Certification').contains(loadedBody['Certification'])
     )
-    dateScan = dynamodb.scan(
-        TableName = 'DYNAMO_TABLE_NAME',
-        FilterExpression = str.(now.month)+'/'+(now.day)+'/'+(now.year)
-    )
-    dataClear = dynamodb.delete_item()
-    return "You have successfully signed up for the class on "
+
+    if len(rosterQuery['Items']) >= 10:
+        classTable.delete_item(
+            Key={
+                'Certification': loadedBody['Certification'],
+                'StartDate': loadedBody['StartDate']
+            }
+        )
