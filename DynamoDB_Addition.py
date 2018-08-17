@@ -29,8 +29,7 @@ def lambda_handler(event, context):
         FilterExpression=Attr('Certification').contains(loadedBody['Certification'])
     )
 
-    # items = json.dumps(query['Items'])
-
+    # Removes class from ClassDates table if at or above threshhold (15)
     if len(query['Items']) >= 15:
         classTable.delete_item(
             Key={
@@ -45,6 +44,5 @@ def lambda_handler(event, context):
             "Access-Control-Allow-Origin": "*",
         },
         "body": body
-        # "body": len(query['Items'])
     }
     return resp

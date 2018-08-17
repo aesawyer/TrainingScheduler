@@ -1,5 +1,9 @@
 import boto3
+import json
+import decimal
 import os
+from boto3.dynamodb.conditions import Key, Attr
+
 
 def lambda_handler(event, context):
     dynamodb = boto3.resource('dynamodb')
@@ -8,6 +12,7 @@ def lambda_handler(event, context):
 
     items = response['Items']
 
+    # Provides items in ClassDates table to .html for dropdown fill
     resp = {
         "statusCode": 200,
         "headers": {
