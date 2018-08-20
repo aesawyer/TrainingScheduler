@@ -20,22 +20,33 @@
                 }
             };
         </script>
-        
-        <script>
-            function testFunc() {
-                window.location.href = "error.html"
-                console.log('testFunc success')
-            }
-        </script>
         <style>
-            body {
+            html {
                 background-image: linear-gradient(#003057, black);
+                height: 100%;
+                width: 100%;
+            }
+            .button {
+                background-color: #ffffff;
+                border: none;
+                color: black;
+                padding: 15px 32 px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                -webkit-transition-duration: .02s;
+                transition-duration: 0.2s;
+                cursor: pointer;
+            }
+            .button:hover {
+                background-color: #FFA500;
             }
         </style>
         
     </head>
     <body>
-        <div align='center'>
+        <div align='center' padding='70px'>
             <br>
             <br>
             <img src='wgu.png' id='wgu' height="145">
@@ -51,7 +62,7 @@
                 <option value="Solutions Architect - Associate">Solutions Architect - Associate</option>
                 <option value="System Administrator - Associate">System Administrator - Associate</option>
             </select>
-            <button onclick="swapPage(document.getElementById('class').value)">Click To Enroll</button>
+            <button class='button b', onclick="swapPage(document.getElementById('class').value)">Click to Enroll</button>
         </div>
     </body>
 </html>

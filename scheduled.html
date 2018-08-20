@@ -10,6 +10,24 @@
         <style>
             body {
                 background-image: linear-gradient(#003057, black);
+                height: 100%;
+                width: 100%;
+            }
+            .button {
+                background-color: #ffffff;
+                border: none;
+                color: black;
+                padding: 15px 32 px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                -webkit-transition-duration: .02s;
+                transition-duration: 0.2s;
+                cursor: pointer;
+            }
+            .button:hover {
+                background-color: #FFA500;
             }
         </style>
     </head>
@@ -22,7 +40,7 @@
             <h2 style="color:white"> You have successfully signed up! </h2>
             <h3 style="color:white"> Keep an eye on your email for confirmation </h3>
             <br>
-            <button onclick="returnHome()">Return Home</button>
+            <button class='button', onclick="returnHome()">Return Home</button>
         </div>
     </body>
 </html>
