@@ -61,27 +61,27 @@ def date_checker(val):
 
 def date_converter(val):
     # Used in-place of strptime due to strptime output
-    if val == 'January':
+    if val == '01':
         return 1
-    elif val == 'February':
+    elif val == '02':
         return 2
-    elif val == 'March':
+    elif val == '03':
         return 3
-    elif val == 'April':
+    elif val == '04':
         return 4
-    elif val == 'May':
+    elif val == '05':
         return 5
-    elif val == 'June':
+    elif val == '06':
         return 6
-    elif val == 'July':
+    elif val == '07':
         return 7
-    elif val == 'August':
+    elif val == '08':
         return 8
-    elif val == 'September':
+    elif val == '09':
         return 9
-    elif val == 'October':
+    elif val == '10':
         return 10
-    elif val == 'November':
+    elif val == '11':
         return 11
-    elif val == 'December':
+    elif val == '12':
         return 12
