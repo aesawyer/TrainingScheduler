@@ -26,37 +26,14 @@ def lambda_handler(event, context):
         }
     )
     '''
-    ses = boto3.client('ses', region_name=os.getenv('SES_REGION'))
-    ses.send_email(
-        Source=os.getenv('SES_EMAIL_SOURCE'),
-        Destination={'ToAddresses': tuple(loadedBody['Email'])},
-        Message={
-            'Subject': {
-                'Data': 'AWS Certification Course Confirmation',
-                'Charset': 'UTF-8',
-            },
-            'Body': {
-                'Text': {
-                    'Data': 'Congratulations ' + loadedBody['FirstName'] + ' ' + loadedBody['LastName'] + '! ' + 'You have successfully signed up for the ' + loadedBody['Certification'] + ' course starting on ' + loadedBody['StartDate'] + '.',
-                    'Charset': 'UTF-8',
-                }
-            }
-        },
-        ReturnPath='adam.sawyer@wgu.edu',
-        ReturnPathArn='arn:aws:ses:us-east-1:918283516283:identity/adam.sawyer@wgu.edu'
-    )
-    print(type(loadedData['Email']))
-    '''
-    #Sends Confirmation Email
-    s = smtplib.SMTP()
-    s.connect('email-smtp.us-east-1.amazonaws.com', 587)
+    s = smtplib.SMTP('email-smtp.us-east-1.amazonaws.com', 587)
+    s.ehlo()
     s.starttls()
-    s.login(os.getenv('SMTP_ACCESS'), os.getenv('SMTP_SECRETACCESS'))
-    msg = 'Subject: AWS Certification Course Confirmation\n\nTestEmail'
-    # From:'+os.getenv('SES_EMAIL_SOURCE')+'\nTo:'+loadedBody['Email']+'\n
-    s.sendmail(os.getenv('SES_EMAIL_SOURCE'), loadedBody['Email'], msg)
+    s.login('AKIAJUIHL4EXT7C7ASXQ', 'AqKGzXTF1zjP8UM26NY4NjTqfTDrhZsq0pSqQNQ2HWWN')
+    msg= 'Subject: AWS Certification Course Confirmation\n\nTestEmail'
+    s.sendmail('adam.sawyer@wgu.edu', loadedBody['Email'], msg)
     s.close()
-
+    '''
     query = table.query(
         KeyConditionExpression=Key('StartDate').eq(loadedBody['StartDate']),
         FilterExpression=Attr('Certification').contains(loadedBody['Certification'])
