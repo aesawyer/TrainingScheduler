@@ -25,15 +25,7 @@ def lambda_handler(event, context):
             'Certification': loadedBody['Certification']
         }
     )
-    '''
-    s = smtplib.SMTP('email-smtp.us-east-1.amazonaws.com', 587)
-    s.ehlo()
-    s.starttls()
-    s.login('AKIAJUIHL4EXT7C7ASXQ', 'AqKGzXTF1zjP8UM26NY4NjTqfTDrhZsq0pSqQNQ2HWWN')
-    msg= 'Subject: AWS Certification Course Confirmation\n\nTestEmail'
-    s.sendmail('adam.sawyer@wgu.edu', loadedBody['Email'], msg)
-    s.close()
-    '''
+
     query = table.query(
         KeyConditionExpression=Key('StartDate').eq(loadedBody['StartDate']),
         FilterExpression=Attr('Certification').contains(loadedBody['Certification'])
