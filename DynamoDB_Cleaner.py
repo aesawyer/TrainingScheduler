@@ -8,14 +8,14 @@ import datetime
 
 def lambda_handler(event, context):
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table(os.environ['ROSTER_TABLE_NAME'])
+    rosterTable = dynamodb.Table(os.environ['ROSTER_TABLE_NAME'])
     classTable = dynamodb.Table(os.environ['CLASS_TABLE_NAME'])
-    rosterScan = table.scan()
+    rosterScan = rosterTable.scan()
 
     rosterItems = rosterScan['Items']  # Pulls items from scan
     rosterJSON = json.dumps(rosterItems)  # Converts to string
     loadedRoster = json.loads(rosterJSON)  # Convert to dict for category sorting
-    print(loadedRoster)
+
     for o in loadedRoster:
         if date_checker(o['StartDate']):
             classTable.delete_item(
@@ -24,7 +24,7 @@ def lambda_handler(event, context):
                     'StartDate': o['StartDate']
                 }
             )
-            table.delete_item(
+            rosterTable.delete_item(
                 Key={
                     'StartDate': o['StartDate'],
                     'Email': o['Email']
@@ -36,11 +36,11 @@ def date_checker(val):
     # val input "Numerical Month/Numberical Day/Full Year" (example: "01/21/2018")
     delim = '/'
     stack = [val]
-    print(stack)
+
     now = datetime.datetime.now()
     currMon = now.month
     currDay = now.day
-    currYear = now.year  # Check for AWS provided time options to optimize
+    currYear = now.year
 
     # splits val input into separate Month, Day, and Year
     for i, substring in enumerate(stack):
@@ -48,7 +48,6 @@ def date_checker(val):
         stack.pop(i)
         for j, _substring in enumerate(substack):
             stack.insert(i + j, _substring)
-            # print(substack)
 
     if (int(stack[0]) < currMon):
         return (True)
