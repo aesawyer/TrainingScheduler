@@ -26,6 +26,29 @@ def lambda_handler(event, context):
         }
     )
 
+    ses = boto3.client('ses', region_name=os.getenv('SES_REGION'))
+    email = ses.send_email(
+        Source=os.environ['SES_EMAIL_SOURCE'],
+        Destination={
+            'ToAddresses': [
+                os.environ['SES_EMAIL_SOURCE']
+            ],
+        },
+        Message={
+            'Subject': {
+                'Data': 'New Attendee for ' + loadedBody['Certification'] + ' Certification Training!',
+                'Charset': 'UTF-8'
+            },
+            'Body': {
+                'Text': {
+                    'Data': loadedBody['FirstName'] + ' ' + loadedBody['LastName'] + ' has signed up for the ' +
+                            loadedBody['Certification'] + ' course on ' + loadedBody['StartDate'],
+                    'Charset': 'UTF-8'
+                }
+            }
+        }
+    )
+
     query = table.query(
         KeyConditionExpression=Key('StartDate').eq(loadedBody['StartDate']),
         FilterExpression=Attr('Certification').contains(loadedBody['Certification'])

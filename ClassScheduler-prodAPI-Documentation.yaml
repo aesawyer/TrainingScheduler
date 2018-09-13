@@ -1,0 +1,83 @@
+---
+swagger: "2.0"
+info:
+  description: "Class Scheduling API for use with WGU AWS Certification Preparation\
+    \ Courses."
+  version: "2018-09-13T17:17:15Z"
+  title: "ClassScheduler"
+  contact:
+    name: "Adam Sawyer"
+    email: "adam.sawyer@wgu.edu"
+host: "sq6nxp0qa8.execute-api.us-east-1.amazonaws.com"
+basePath: "/prod"
+schemes:
+- "https"
+paths:
+  /Scheduler_DateTimeChecker:
+    get:
+      description: "Pulls dates/times of upcoming classes to populate dropdown"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+    options:
+      description: "OPTIONS method used for CORS integration"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /Scheduler_RegisterTrainee:
+    post:
+      description: "adds JSON data from client to ClassRoster DynamoDB table"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+    options:
+      description: "OPTIONS method used for CORS integration"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+definitions:
+  Empty:
+    type: "object"
+    title: "Empty Schema"
